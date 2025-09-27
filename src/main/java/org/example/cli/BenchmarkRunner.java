@@ -1,5 +1,6 @@
 package org.example.cli;
 
+import org.example.algorithms.HeapSort;
 import org.example.algorithms.ShellSort;
 import org.example.metrics.Metrics;
 import org.example.csvWriter.CSVWriter;
@@ -40,15 +41,19 @@ public class BenchmarkRunner {
                     seq = ShellSort.GapSequence.SHELL;
                 }
                 ShellSort.sort(copy, metrics, seq);
-            } else {
+            } else if ("heap".equalsIgnoreCase(algorithm)){
+                gap="";
+                HeapSort.heapSort(copy, metrics);
+
+            }else {
                 System.err.println("Unsupported algorithm: " + algorithm);
                 return;
             }
 
             long timeMs = (System.nanoTime() - start) / 1_000_000;
-            csv.write(algorithm + "-" + gap, size, timeMs, metrics);
-            System.out.printf("trial=%d n=%d time=%dms comps=%d swaps=%d accesses=%d%n",
-                    t, size, timeMs, metrics.getComparisons(), metrics.getSwaps(), metrics.getArrayAccesses());
+            csv.write(algorithm + " " + gap, size, timeMs, metrics);
+            System.out.printf("algorithm=%s trial=%d n=%d time=%dms comps=%d swaps=%d accesses=%d \n",
+                    algorithm, t, size, timeMs, metrics.getComparisons(), metrics.getSwaps(), metrics.getArrayAccesses());
         }
     }
 
