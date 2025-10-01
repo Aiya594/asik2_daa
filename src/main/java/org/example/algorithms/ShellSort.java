@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+//Algorithm written by Nurdan Zhanabayev
 public final class ShellSort {
 
     public enum GapSequence { SHELL, KNUTH, SEDGEWICK }

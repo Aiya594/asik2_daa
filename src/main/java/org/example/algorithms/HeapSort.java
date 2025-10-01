@@ -2,15 +2,18 @@ package org.example.algorithms;
 
 import org.example.metrics.Metrics;
 
+
+//Algorithm written by Aiya Zhakupoova
 public class HeapSort {
 
     private static void heapify(int[] arr, int n,int i, Metrics metrics) {
         metrics.enterRecursion();
 
-        int largest = i;
-        int l = 2 * i + 1;
-        int r = 2 * i + 2;
+        int largest = i; //assuming that the current node is the largest
+        int l = 2 * i + 1; //idx of the left child
+        int r = 2 * i + 2;//idx of the right child
 
+        //checking if there is any left child that is greater than the current val
         if (l < n ) {
             metrics.incrementArrayAccesses();
             metrics.incrementArrayAccesses();
@@ -20,7 +23,7 @@ public class HeapSort {
                 largest = l;
             }
         }
-
+        //checking if there is any right child that is greater than the current val
         if (r < n) {
             metrics.incrementArrayAccesses();
             metrics.incrementArrayAccesses();
@@ -31,6 +34,7 @@ public class HeapSort {
             }
         }
 
+        // if the largest is not the current node then swap and continue heapifying
         if (largest != i) {
             metrics.incrementArrayAccesses(); //for reading arr[i]
             metrics.incrementArrayAccesses(); //for reading arr[largest]
@@ -51,6 +55,7 @@ public class HeapSort {
     public static void heapSort(int[] arr, Metrics metrics) {
         int n = arr.length;
 
+        //building max-heap
         for (int i = n / 2 - 1; i >= 0; i--) {
             heapify(arr, n, i,metrics);
         }
